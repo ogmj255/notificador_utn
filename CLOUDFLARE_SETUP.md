@@ -14,8 +14,8 @@ wrangler login
 Editar `wrangler.toml` con tus credenciales:
 ```toml
 [vars]
-TWILIO_ACCOUNT_SID = "ACf4ea1b96456fc01f6d39b55bcbe42adc"
-TWILIO_AUTH_TOKEN = "adfcb3fa55747377a7e0d00b922569f6"
+TWILIO_ACCOUNT_SID = "your_account_sid"
+TWILIO_AUTH_TOKEN = "your_auth_token"
 WHATSAPP_FROM = "whatsapp:+14155238886"
 STUDENT_PHONE = "whatsapp:+593985051676,whatsapp:+593967896267"
 STUDENT_NAMES = "Omar,Domenica"
