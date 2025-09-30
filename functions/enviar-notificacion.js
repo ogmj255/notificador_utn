@@ -77,13 +77,13 @@ function formatearMensaje(horario, dia, nombre) {
     return `Buenos dias *${nombre}*!\n\nNo tienes clases programadas para *${dia.toUpperCase()}*\n\nDisfruta tu dia libre!`;
   }
 
-  let mensaje = `Buenos dias *${nombre}*!\n\n*HORARIO ${dia.toUpperCase()}*\n========================\n\n`;
+  let mensaje = `¡Buenos dias *${nombre}*!\n\n*HORARIO ${dia.toUpperCase()}*\n========================\n\n`;
 
   horario.forEach((clase, i) => {
-    mensaje += `*Clase ${i + 1}*\nHora: ${clase.hora}\nMateria: ${clase.materia}\nProfesor: ${clase.profesor}\n\n`;
+    mensaje += `*Clase ${i + 1}*\nHora: ${clase.hora}\nMateria: ${clase.materia}\nIng: ${clase.profesor}\n\n`;
   });
 
-  mensaje += "========================\nQue tengas un excelente dia academico!";
+  mensaje += "========================\n¡Que tengas un excelente dia academico!";
   return mensaje;
 }
 
