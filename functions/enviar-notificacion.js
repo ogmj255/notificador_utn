@@ -35,37 +35,10 @@ export async function onRequest(context) {
       return new Response('Error: STUDENT_PHONE no configurado');
     }
     
-    const dias = ['lunes', 'martes', 'miercoles', 'jueves', 'viernes', 'sabado', 'domingo'];
-    const hoy = new Date().getDay() === 0 ? 6 : new Date().getDay() - 1;
-    const diaNombre = dias[hoy];
-    const horarioHoy = HORARIO[diaNombre] || [];
+    // Debug: mostrar credenciales (solo para debug)
+    return new Response(`Debug - SID: ${env.TWILIO_ACCOUNT_SID}, Token: ${env.TWILIO_AUTH_TOKEN ? 'Configurado' : 'No configurado'}, From: ${env.WHATSAPP_FROM}, Phone: ${env.STUDENT_PHONE}`);
     
-    const numeros = env.STUDENT_PHONE.split(',');
-    const nombres = env.STUDENT_NAMES ? env.STUDENT_NAMES.split(',') : [];
-    let mensajesEnviados = 0;
-    let errores = [];
-    
-    for (let i = 0; i < numeros.length; i++) {
-      const numero = numeros[i].trim();
-      if (numero) {
-        const nombre = nombres[i] ? nombres[i].trim() : 'Estudiante';
-        const mensaje = formatearMensaje(horarioHoy, diaNombre, nombre);
-        
-        const resultado = await enviarWhatsApp(env.TWILIO_ACCOUNT_SID, env.TWILIO_AUTH_TOKEN, env.WHATSAPP_FROM, numero, mensaje);
-        if (resultado.sid) {
-          mensajesEnviados++;
-        } else {
-          errores.push(`${numero}: ${resultado.message || 'Error desconocido'}`);
-        }
-      }
-    }
-    
-    let respuesta = `Mensajes enviados: ${mensajesEnviados}`;
-    if (errores.length > 0) {
-      respuesta += ` | Errores: ${errores.join(', ')}`;
-    }
-    
-    return new Response(respuesta);
+
   } catch (error) {
     return new Response(`Error: ${error.message}`);
   }
