@@ -1,24 +1,24 @@
 HORARIO_SEMANAL = {
     'lunes': [
-        {'hora': '18:00-19:00', 'materia': 'Inteligencia Artificial', 'profesor': 'Caranqui Sánchez Víctor Manuel'},
-        {'hora': '19:00-20:00', 'materia': 'Inteligencia Artificial', 'profesor': 'Caranqui Sánchez Víctor Manuel'},
-        {'hora': '20:00-21:00', 'materia': 'Deontología', 'profesor': 'Dávila Montalvo Carlos Andrés'},
-        {'hora': '21:00-22:00', 'materia': 'Deontología', 'profesor': 'Dávila Montalvo Carlos Andrés'}
+        {'hora': '18:00-19:00', 'materia': 'Inteligencia Artificial', 'profesor': 'Víctor Caranqui Sánchez'},
+        {'hora': '19:00-20:00', 'materia': 'Inteligencia Artificial', 'profesor': 'Víctor Caranqui Sánchez'},
+        {'hora': '20:00-21:00', 'materia': 'Deontología', 'profesor': 'Carlos Dávila Montalvo'},
+        {'hora': '21:00-22:00', 'materia': 'Deontología', 'profesor': 'Carlos Dávila Montalvo'}
     ],
     'martes': [
-        {'hora': '18:00-19:00', 'materia': 'I.B. Programación Avanzada', 'profesor': 'Salazar Fierro Fausto Alberto'},
-        {'hora': '19:00-20:00', 'materia': 'Auditoría de TI', 'profesor': 'Terán Pineda Diego Francisco'},
-        {'hora': '20:00-21:00', 'materia': 'Inteligencia Artificial', 'profesor': 'Caranqui Sánchez Víctor Manuel'}
+        {'hora': '18:00-19:00', 'materia': 'I.B. Programación Avanzada', 'profesor': 'Fausto Salazar Fierro'},
+        {'hora': '19:00-20:00', 'materia': 'Auditoría de TI', 'profesor': 'Diego Terán Pineda'},
+        {'hora': '20:00-21:00', 'materia': 'Inteligencia Artificial', 'profesor': 'Víctor Caranqui Sánchez'}
     ],
     'miercoles': [
-        {'hora': '18:00-19:00', 'materia': 'Emprendimiento e Innovación', 'profesor': 'Cisneros Ruales Marcelo Bayardo'},
-        {'hora': '19:00-20:00', 'materia': 'Emprendimiento e Innovación', 'profesor': 'Cisneros Ruales Marcelo Bayardo'}
+        {'hora': '18:00-19:00', 'materia': 'Emprendimiento e Innovación', 'profesor': 'Marcelo Cisneros Ruales'},
+        {'hora': '19:00-20:00', 'materia': 'Emprendimiento e Innovación', 'profesor': 'Marcelo Cisneros Ruales'}
     ],
     'jueves': [
-        {'hora': '18:00-19:00', 'materia': 'Auditoría de TI', 'profesor': 'Terán Pineda Diego Francisco'},
-        {'hora': '19:00-20:00', 'materia': 'Auditoría de TI', 'profesor': 'Terán Pineda Diego Francisco'},
-        {'hora': '20:00-21:00', 'materia': 'I.B. Programación Avanzada', 'profesor': 'Salazar Fierro Fausto Alberto'},
-        {'hora': '21:00-22:00', 'materia': 'I.B. Programación Avanzada', 'profesor': 'Salazar Fierro Fausto Alberto'}
+        {'hora': '18:00-19:00', 'materia': 'Auditoría de TI', 'profesor': 'Diego Terán Pineda'},
+        {'hora': '19:00-20:00', 'materia': 'Auditoría de TI', 'profesor': 'Diego Terán Pineda'},
+        {'hora': '20:00-21:00', 'materia': 'I.B. Programación Avanzada', 'profesor': 'Fausto Salazar Fierro'},
+        {'hora': '21:00-22:00', 'materia': 'I.B. Programación Avanzada', 'profesor': 'Fausto Salazar Fierro'}
     ],
     'viernes': [],
     'sabado': [],
