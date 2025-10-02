@@ -1,7 +1,7 @@
 var __defProp = Object.defineProperty;
 var __name = (target, value) => __defProp(target, "name", { value, configurable: true });
 
-// ../.wrangler/tmp/bundle-UMochn/checked-fetch.js
+// ../.wrangler/tmp/bundle-nn8yjD/checked-fetch.js
 var urls = /* @__PURE__ */ new Set();
 function checkURL(request, init) {
   const url = request instanceof URL ? request : new URL(
@@ -573,6 +573,7 @@ async function onRequest8(context) {
     const formData = await request.formData();
     const body = formData.get("Body") || "";
     const from = formData.get("From") || "";
+    console.log("Mensaje recibido:", body, "De:", from);
     const respuestasRecibido = [
       "\u2705 \xA1Perfecto! Recordatorio confirmado. \xA1Que tengas excelentes clases!",
       "\u2705 \xA1Genial! Ya tienes todo listo para tus clases de hoy.",
@@ -1169,7 +1170,7 @@ var jsonError = /* @__PURE__ */ __name(async (request, env, _ctx, middlewareCtx)
 }, "jsonError");
 var middleware_miniflare3_json_error_default = jsonError;
 
-// ../.wrangler/tmp/bundle-UMochn/middleware-insertion-facade.js
+// ../.wrangler/tmp/bundle-nn8yjD/middleware-insertion-facade.js
 var __INTERNAL_WRANGLER_MIDDLEWARE__ = [
   middleware_ensure_req_body_drained_default,
   middleware_miniflare3_json_error_default
@@ -1201,7 +1202,7 @@ function __facade_invoke__(request, env, ctx, dispatch, finalMiddleware) {
 }
 __name(__facade_invoke__, "__facade_invoke__");
 
-// ../.wrangler/tmp/bundle-UMochn/middleware-loader.entry.ts
+// ../.wrangler/tmp/bundle-nn8yjD/middleware-loader.entry.ts
 var __Facade_ScheduledController__ = class ___Facade_ScheduledController__ {
   constructor(scheduledTime, cron, noRetry) {
     this.scheduledTime = scheduledTime;

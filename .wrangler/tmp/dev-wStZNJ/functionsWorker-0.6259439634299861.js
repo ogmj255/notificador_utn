@@ -596,6 +596,7 @@ async function onRequest8(context) {
     const formData = await request.formData();
     const body = formData.get("Body") || "";
     const from = formData.get("From") || "";
+    console.log("Mensaje recibido:", body, "De:", from);
     const respuestasRecibido = [
       "\u2705 \xA1Perfecto! Recordatorio confirmado. \xA1Que tengas excelentes clases!",
       "\u2705 \xA1Genial! Ya tienes todo listo para tus clases de hoy.",
