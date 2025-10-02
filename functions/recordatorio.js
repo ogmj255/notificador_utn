@@ -90,14 +90,15 @@ async function enviarRecordatorio(accountSid, authToken, from, to, horario, dia,
     return response.json();
   }
 
-  // Crear mensaje con botones interactivos
-  let mensaje = `🔔 *RECORDATORIO DE CLASES*\n\nHola *${nombre}*!\n\nTienes clases hoy *${dia.toUpperCase()}* a partir de las 18:00:\n\n`;
-  
+  // Crear mensaje con enlaces de 1 click
+  let clases = '';
   horario.forEach((clase, i) => {
-    mensaje += `📚 ${clase.hora} - ${clase.materia}\n👨🏫 Ing. ${clase.profesor}\n\n`;
+    clases += `📚 ${clase.hora} - ${clase.materia}\n👨🏫 Ing. ${clase.profesor}\n\n`;
   });
-  
-  mensaje += "⏰ *¡No olvides conectarte a tiempo!*";
+
+  const numeroLimpio = from.replace('whatsapp:', '').replace('+', '');
+  const enlaceRecibido = `https://wa.me/${numeroLimpio}?text=Recibido%20✅`;
+  const enlaceGracias = `https://wa.me/${numeroLimpio}?text=Gracias%20👍`;
 
   const response = await fetch(url, {
     method: 'POST',
@@ -108,12 +109,7 @@ async function enviarRecordatorio(accountSid, authToken, from, to, horario, dia,
     body: new URLSearchParams({ 
       From: from,
       To: to, 
-      Body: mensaje,
-      // Botones interactivos
-      PersistentAction: JSON.stringify([
-        "Recibido ✅",
-        "Gracias 👍"
-      ])
+      Body: `🔔 *RECORDATORIO DE CLASES*\n\nHola *${nombre}*!\n\nTienes clases hoy *${dia.toUpperCase()}* a partir de las 18:00:\n\n${clases}⏰ *¡No olvides conectarte a tiempo!*\n\n✅ Confirmar: ${enlaceRecibido}\n👍 Gracias: ${enlaceGracias}`
     })
   });
   
