@@ -1,4 +1,4 @@
-name = "notificador-utn"
+name = "notificadorutn"
 main = "src/index.js"
 compatibility_date = "2023-12-01"
 
