@@ -91,13 +91,19 @@ async function enviarWhatsApp(accountSid, authToken, from, to, body) {
   const url = `https://api.twilio.com/2010-04-01/Accounts/${accountSid}/Messages.json`;
   const auth = btoa(`${accountSid}:${authToken}`);
   
+  // Usar template para evitar error 63016
   const response = await fetch(url, {
     method: 'POST',
     headers: {
       'Authorization': `Basic ${auth}`,
       'Content-Type': 'application/x-www-form-urlencoded'
     },
-    body: new URLSearchParams({ From: from, To: to, Body: body })
+    body: new URLSearchParams({ 
+      From: from, 
+      To: to, 
+      ContentSid: 'HXb5b62575e6e4ff6129ad7c8efe1f983e',
+      ContentVariables: JSON.stringify({"1": "Hoy", "2": "7:00 AM"})
+    })
   });
   
   return response.json();
