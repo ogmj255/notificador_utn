@@ -96,7 +96,12 @@ async function enviarRecordatorio(accountSid, authToken, from, to, horario, dia,
     clases += `📚 ${clase.hora} - ${clase.materia}\n👨🏫 Ing. ${clase.profesor}\n\n`;
   });
 
-  // Mensaje con respuestas sugeridas
+  // Mensaje con enlaces de 1 click
+  const numeroLimpio = from.replace('whatsapp:', '').replace('+', '');
+  const enlaceRecibido = `https://wa.me/${numeroLimpio}?text=Recibido%20✅`;
+  const enlaceGracias = `https://wa.me/${numeroLimpio}?text=Gracias%20👍`;
+  const enlaceHorario = `https://wa.me/${numeroLimpio}?text=Horario%20📅`;
+
   const response = await fetch(url, {
     method: 'POST',
     headers: {
@@ -106,7 +111,7 @@ async function enviarRecordatorio(accountSid, authToken, from, to, horario, dia,
     body: new URLSearchParams({ 
       From: from,
       To: to, 
-      Body: `🔔 *RECORDATORIO DE CLASES*\n\nHola *${nombre}*!\n\nTienes clases hoy *${dia.toUpperCase()}* a partir de las 18:00:\n\n${clases}⏰ *¡No olvides conectarte a tiempo!*\n\n✅ Responde: *Recibido*\n👍 Responde: *Gracias*\n📅 Responde: *Horario*`
+      Body: `🔔 *RECORDATORIO DE CLASES*\n\nHola *${nombre}*!\n\nTienes clases hoy *${dia.toUpperCase()}* a partir de las 18:00:\n\n${clases}⏰ *¡No olvides conectarte a tiempo!*\n\n✅ Confirmar: ${enlaceRecibido}\n👍 Gracias: ${enlaceGracias}\n📅 Horario: ${enlaceHorario}`
     })
   });
   

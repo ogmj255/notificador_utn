@@ -58,43 +58,274 @@ globalThis.fetch = new Proxy(globalThis.fetch, {
 async function onRequest(context) {
   const { env } = context;
   try {
-    const url = "https://content.twilio.com/v1/Content";
+    const contentUrl = "https://content.twilio.com/v1/Content";
     const auth = btoa(`${env.TWILIO_ACCOUNT_SID}:${env.TWILIO_AUTH_TOKEN}`);
+    const contentData = {
+      "FriendlyName": "Recordatorio UTN",
+      "Language": "es",
+      "Types": JSON.stringify([{
+        "type": "twilio/quick-reply",
+        "body": "\u{1F514} RECORDATORIO DE CLASES\n\nHola {{1}}!\n\nTienes clases hoy {{2}} a partir de las 18:00:\n\n{{3}}\n\u23F0 \xA1No olvides conectarte a tiempo!",
+        "actions": [
+          { "title": "\u2705 Recibido" },
+          { "title": "\u{1F44D} Gracias" },
+          { "title": "\u{1F4C5} Horario" }
+        ]
+      }])
+    };
+    const contentResponse = await fetch(contentUrl, {
+      method: "POST",
+      headers: {
+        "Authorization": `Basic ${auth}`,
+        "Content-Type": "application/x-www-form-urlencoded"
+      },
+      body: new URLSearchParams(contentData)
+    });
+    const contentResult = await contentResponse.json();
+    if (!contentResult.sid) {
+      return new Response(`Error creando contenido: ${JSON.stringify(contentResult)}`, { status: 400 });
+    }
+    const HORARIO3 = {
+      "jueves": [
+        { "hora": "18:00-19:00", "materia": "Auditor\xEDa de TI", "profesor": "Diego Ter\xE1n Pineda" },
+        { "hora": "19:00-20:00", "materia": "Auditor\xEDa de TI", "profesor": "Diego Ter\xE1n Pineda" },
+        { "hora": "20:00-21:00", "materia": "I.B. Programaci\xF3n Avanzada", "profesor": "Fausto Salazar Fierro" },
+        { "hora": "21:00-22:00", "materia": "I.B. Programaci\xF3n Avanzada", "profesor": "Fausto Salazar Fierro" }
+      ]
+    };
     const dias = ["lunes", "martes", "miercoles", "jueves", "viernes", "sabado", "domingo"];
     const hoy = (/* @__PURE__ */ new Date()).getDay() === 0 ? 6 : (/* @__PURE__ */ new Date()).getDay() - 1;
     const diaNombre = dias[hoy];
-    const payload = {
-      friendly_name: `Recordatorio_${diaNombre}`,
-      language: "es",
-      types: {
-        "twilio/quick-reply": {
-          body: "\u{1F514} *RECORDATORIO DE CLASES*\n\nHola {{1}}!\n\nTienes clases hoy {{2}} a partir de las 18:00:\n\n{{3}}\n\u23F0 *\xA1No olvides conectarte a tiempo!*",
-          actions: [
-            { title: "\u2705 Recibido" },
-            { title: "\u{1F44D} Gracias" },
-            { title: "\u{1F4C5} Ver horario" }
-          ]
+    const horarioHoy = HORARIO3[diaNombre] || [];
+    let clases = "";
+    horarioHoy.forEach((clase, i) => {
+      clases += `\u{1F4DA} ${clase.hora} - ${clase.materia}
+\u{1F468}\u{1F3EB} Ing. ${clase.profesor}
+
+`;
+    });
+    const messageUrl = `https://api.twilio.com/2010-04-01/Accounts/${env.TWILIO_ACCOUNT_SID}/Messages.json`;
+    const numeros = env.STUDENT_PHONE.split(",");
+    const nombres = env.STUDENT_NAMES ? env.STUDENT_NAMES.split(",") : [];
+    let mensajesEnviados = 0;
+    for (let i = 0; i < numeros.length; i++) {
+      const numero = numeros[i].trim();
+      if (numero) {
+        const nombre = nombres[i] ? nombres[i].trim() : "Estudiante";
+        const messageResponse = await fetch(messageUrl, {
+          method: "POST",
+          headers: {
+            "Authorization": `Basic ${auth}`,
+            "Content-Type": "application/x-www-form-urlencoded"
+          },
+          body: new URLSearchParams({
+            from: env.WHATSAPP_FROM,
+            to: numero,
+            content_sid: contentResult.sid,
+            content_variables: JSON.stringify({
+              "1": nombre,
+              "2": diaNombre.toUpperCase(),
+              "3": clases
+            })
+          })
+        });
+        const messageResult = await messageResponse.json();
+        if (messageResult.sid) {
+          mensajesEnviados++;
         }
       }
+    }
+    return new Response(`\u2705 Contenido creado: ${contentResult.sid}
+\u{1F4F1} Mensajes con botones enviados: ${mensajesEnviados}`);
+  } catch (error) {
+    return new Response(`Error: ${error.message}`, { status: 500 });
+  }
+}
+__name(onRequest, "onRequest");
+__name2(onRequest, "onRequest");
+async function onRequest2(context) {
+  const { env } = context;
+  try {
+    if (!env.TWILIO_ACCOUNT_SID) {
+      return new Response("Error: TWILIO_ACCOUNT_SID no configurado");
+    }
+    if (!env.STUDENT_PHONE) {
+      return new Response("Error: STUDENT_PHONE no configurado");
+    }
+    const url = `https://api.twilio.com/2010-04-01/Accounts/${env.TWILIO_ACCOUNT_SID}/Messages.json`;
+    const auth = btoa(`${env.TWILIO_ACCOUNT_SID}:${env.TWILIO_AUTH_TOKEN}`);
+    const numeros = env.STUDENT_PHONE.split(",");
+    const nombres = env.STUDENT_NAMES ? env.STUDENT_NAMES.split(",") : [];
+    let mensajesEnviados = 0;
+    let errores = [];
+    for (let i = 0; i < numeros.length; i++) {
+      const numero = numeros[i].trim();
+      if (numero) {
+        const nombre = nombres[i] ? nombres[i].trim() : "Estudiante";
+        const response = await fetch(url, {
+          method: "POST",
+          headers: {
+            "Authorization": `Basic ${auth}`,
+            "Content-Type": "application/x-www-form-urlencoded"
+          },
+          body: new URLSearchParams({
+            From: env.WHATSAPP_FROM,
+            To: numero,
+            Body: `\u{1F514} *RECORDATORIO CLASES UTN*
+
+Hola *${nombre}*!
+
+\u{1F4DA} Tienes clases hoy a las 18:00
+\u23F0 \xA1No olvides conectarte!
+
+\u{1F447} Responde con:`,
+            // Intentar agregar botones usando MediaUrl (método alternativo)
+            MediaUrl: "https://via.placeholder.com/300x100/007acc/white?text=Botones+de+Respuesta"
+          })
+        });
+        const resultado = await response.json();
+        if (resultado.sid) {
+          mensajesEnviados++;
+        } else {
+          errores.push(`${numero}: ${resultado.message || "Error desconocido"}`);
+        }
+      }
+    }
+    let respuesta = `Mensajes con botones enviados: ${mensajesEnviados}`;
+    if (errores.length > 0) {
+      respuesta += ` | Errores: ${errores.join(", ")}`;
+    }
+    return new Response(respuesta);
+  } catch (error) {
+    return new Response(`Error: ${error.message}`);
+  }
+}
+__name(onRequest2, "onRequest2");
+__name2(onRequest2, "onRequest");
+async function onRequest3(context) {
+  const { env, request } = context;
+  if (request.method === "POST") {
+    try {
+      const { contentSid } = await request.json();
+      if (!contentSid || !contentSid.startsWith("HX")) {
+        return new Response("Error: ContentSid inv\xE1lido. Debe empezar con HX", { status: 400 });
+      }
+      return new Response(`\u2705 ContentSid recibido: ${contentSid}
+
+\u{1F4DD} INSTRUCCIONES:
+1. Copia este ContentSid: ${contentSid}
+2. Ve al archivo functions/recordatorio.js
+3. Reemplaza 'CONTENT_SID_AQUI' con: ${contentSid}
+4. Guarda y haz push a GitHub
+
+\u{1F504} Despu\xE9s de esto, /recordatorio enviar\xE1 mensajes con botones reales.
+
+\u{1F4F1} Los usuarios ver\xE1n 3 botones:
+   \u2705 Recibido
+   \u{1F44D} Gracias  
+   \u{1F4C5} Horario`, {
+        headers: { "Content-Type": "text/plain" }
+      });
+    } catch (error) {
+      return new Response(`Error: ${error.message}`, { status: 400 });
+    }
+  }
+  const html = `
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Configurar Botones WhatsApp</title>
+  <style>
+    body { font-family: Arial, sans-serif; margin: 40px; }
+    .container { max-width: 600px; margin: 0 auto; }
+    input { width: 100%; padding: 10px; margin: 10px 0; }
+    button { background: #007acc; color: white; padding: 12px 20px; border: none; border-radius: 5px; cursor: pointer; }
+    .step { background: #f5f5f5; padding: 15px; margin: 10px 0; border-radius: 5px; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>\u{1F527} Configurar Botones WhatsApp</h1>
+    
+    <div class="step">
+      <h3>Paso 1: Crear Contenido</h3>
+      <p>Primero ve a: <a href="/crear-contenido" target="_blank">/crear-contenido</a></p>
+      <p>Copia el ContentSid que te devuelve (empieza con HX...)</p>
+    </div>
+    
+    <div class="step">
+      <h3>Paso 2: Configurar ContentSid</h3>
+      <form id="configForm">
+        <label>ContentSid:</label>
+        <input type="text" id="contentSid" placeholder="HXxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx" required>
+        <button type="submit">Configurar Botones</button>
+      </form>
+    </div>
+    
+    <div id="result"></div>
+  </div>
+  
+  <script>
+    document.getElementById('configForm').onsubmit = async (e) => {
+      e.preventDefault();
+      const contentSid = document.getElementById('contentSid').value;
+      
+      const response = await fetch('/configurar-botones', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ contentSid })
+      });
+      
+      const result = await response.text();
+      document.getElementById('result').innerHTML = '<pre>' + result + '</pre>';
+    };
+  <\/script>
+</body>
+</html>`;
+  return new Response(html, {
+    headers: { "Content-Type": "text/html" }
+  });
+}
+__name(onRequest3, "onRequest3");
+__name2(onRequest3, "onRequest");
+async function onRequest4(context) {
+  const { env } = context;
+  try {
+    const url = "https://content.twilio.com/v1/Content";
+    const auth = btoa(`${env.TWILIO_ACCOUNT_SID}:${env.TWILIO_AUTH_TOKEN}`);
+    const data = {
+      "FriendlyName": "Recordatorio de clases UTN",
+      "Language": "es",
+      "Types": '[{"type":"twilio/quick-reply","body":"\u{1F514} RECORDATORIO DE CLASES\n\nHola {{1}}!\n\nTienes clases hoy {{2}} a partir de las 18:00:\n\n{{3}}\n\u23F0 \xA1No olvides conectarte a tiempo!","actions":[{"title":"\u2705 Recibido"},{"title":"\u{1F44D} Gracias"},{"title":"\u{1F4C5} Horario"}]}]'
     };
     const response = await fetch(url, {
       method: "POST",
       headers: {
         "Authorization": `Basic ${auth}`,
-        "Content-Type": "application/json"
+        "Content-Type": "application/x-www-form-urlencoded"
       },
-      body: JSON.stringify(payload)
+      body: new URLSearchParams(data)
     });
     const result = await response.json();
-    return new Response(JSON.stringify(result, null, 2), {
-      headers: { "Content-Type": "application/json" }
-    });
+    if (result.sid) {
+      return new Response(`\u2705 Contenido creado exitosamente!
+
+ContentSid: ${result.sid}
+
+Copia este SID y reemplaza 'CONTENT_SID_AQUI' en recordatorio.js`, {
+        headers: { "Content-Type": "text/plain" }
+      });
+    } else {
+      return new Response(JSON.stringify(result, null, 2), {
+        headers: { "Content-Type": "application/json" }
+      });
+    }
   } catch (error) {
     return new Response(`Error: ${error.message}`);
   }
 }
-__name(onRequest, "onRequest");
-__name2(onRequest, "onRequest");
+__name(onRequest4, "onRequest4");
+__name2(onRequest4, "onRequest");
 var HORARIO = {
   "lunes": [
     { "hora": "18:00-19:00", "materia": "Inteligencia Artificial", "profesor": "V\xEDctor Caranqui S\xE1nchez" },
@@ -121,7 +352,7 @@ var HORARIO = {
   "sabado": [],
   "domingo": []
 };
-async function onRequest2(context) {
+async function onRequest5(context) {
   const { env } = context;
   try {
     if (!env.TWILIO_ACCOUNT_SID) {
@@ -160,8 +391,8 @@ async function onRequest2(context) {
     return new Response(`Error: ${error.message}`);
   }
 }
-__name(onRequest2, "onRequest2");
-__name2(onRequest2, "onRequest");
+__name(onRequest5, "onRequest5");
+__name2(onRequest5, "onRequest");
 function formatearMensajeMa\u00F1ana(horario, dia, nombre) {
   if (!horario || horario.length === 0) {
     return `\xA1Buenos d\xEDas *${nombre}*!
@@ -234,7 +465,7 @@ var HORARIO2 = {
   "sabado": [],
   "domingo": []
 };
-async function onRequest3(context) {
+async function onRequest6(context) {
   const { env } = context;
   try {
     if (!env.TWILIO_ACCOUNT_SID) {
@@ -272,8 +503,8 @@ async function onRequest3(context) {
     return new Response(`Error: ${error.message}`);
   }
 }
-__name(onRequest3, "onRequest3");
-__name2(onRequest3, "onRequest");
+__name(onRequest6, "onRequest6");
+__name2(onRequest6, "onRequest");
 async function enviarRecordatorio(accountSid, authToken, from, to, horario, dia, nombre) {
   const url = `https://api.twilio.com/2010-04-01/Accounts/${accountSid}/Messages.json`;
   const auth = btoa(`${accountSid}:${authToken}`);
@@ -303,6 +534,10 @@ No tienes clases programadas para *${dia.toUpperCase()}*
 
 `;
   });
+  const numeroLimpio = from.replace("whatsapp:", "").replace("+", "");
+  const enlaceRecibido = `https://wa.me/${numeroLimpio}?text=Recibido%20\u2705`;
+  const enlaceGracias = `https://wa.me/${numeroLimpio}?text=Gracias%20\u{1F44D}`;
+  const enlaceHorario = `https://wa.me/${numeroLimpio}?text=Horario%20\u{1F4C5}`;
   const response = await fetch(url, {
     method: "POST",
     headers: {
@@ -320,16 +555,16 @@ Tienes clases hoy *${dia.toUpperCase()}* a partir de las 18:00:
 
 ${clases}\u23F0 *\xA1No olvides conectarte a tiempo!*
 
-\u2705 Responde: *Recibido*
-\u{1F44D} Responde: *Gracias*
-\u{1F4C5} Responde: *Horario*`
+\u2705 Confirmar: ${enlaceRecibido}
+\u{1F44D} Gracias: ${enlaceGracias}
+\u{1F4C5} Horario: ${enlaceHorario}`
     })
   });
   return response.json();
 }
 __name(enviarRecordatorio, "enviarRecordatorio");
 __name2(enviarRecordatorio, "enviarRecordatorio");
-async function onRequest4(context) {
+async function onRequest7(context) {
   const { env } = context;
   const variables = {
     TWILIO_ACCOUNT_SID: env.TWILIO_ACCOUNT_SID ? "Configurado" : "NO configurado",
@@ -353,9 +588,9 @@ async function onRequest4(context) {
     headers: { "Content-Type": "application/json" }
   });
 }
-__name(onRequest4, "onRequest4");
-__name2(onRequest4, "onRequest");
-async function onRequest5(context) {
+__name(onRequest7, "onRequest7");
+__name2(onRequest7, "onRequest");
+async function onRequest8(context) {
   const { request } = context;
   if (request.method === "POST") {
     const formData = await request.formData();
@@ -408,43 +643,64 @@ async function onRequest5(context) {
   }
   return new Response("Webhook funcionando", { status: 200 });
 }
-__name(onRequest5, "onRequest5");
-__name2(onRequest5, "onRequest");
+__name(onRequest8, "onRequest8");
+__name2(onRequest8, "onRequest");
 var routes = [
   {
-    routePath: "/crear-contenido",
+    routePath: "/botones-reales",
     mountPath: "/",
     method: "",
     middlewares: [],
     modules: [onRequest]
   },
   {
-    routePath: "/enviar-notificacion",
+    routePath: "/botones-simples",
     mountPath: "/",
     method: "",
     middlewares: [],
     modules: [onRequest2]
   },
   {
-    routePath: "/recordatorio",
+    routePath: "/configurar-botones",
     mountPath: "/",
     method: "",
     middlewares: [],
     modules: [onRequest3]
   },
   {
-    routePath: "/test",
+    routePath: "/crear-contenido",
     mountPath: "/",
     method: "",
     middlewares: [],
     modules: [onRequest4]
   },
   {
-    routePath: "/webhook",
+    routePath: "/enviar-notificacion",
     mountPath: "/",
     method: "",
     middlewares: [],
     modules: [onRequest5]
+  },
+  {
+    routePath: "/recordatorio",
+    mountPath: "/",
+    method: "",
+    middlewares: [],
+    modules: [onRequest6]
+  },
+  {
+    routePath: "/test",
+    mountPath: "/",
+    method: "",
+    middlewares: [],
+    modules: [onRequest7]
+  },
+  {
+    routePath: "/webhook",
+    mountPath: "/",
+    method: "",
+    middlewares: [],
+    modules: [onRequest8]
   }
 ];
 function lexer(str) {
