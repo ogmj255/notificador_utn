@@ -48,9 +48,8 @@ export async function onRequest(context) {
       const numero = numeros[i].trim();
       if (numero) {
         const nombre = nombres[i] ? nombres[i].trim() : 'Estudiante';
-        const mensaje = formatearMensajeMañana(horarioHoy, diaNombre, nombre);
         
-        const resultado = await enviarWhatsApp(env.TWILIO_ACCOUNT_SID, env.TWILIO_AUTH_TOKEN, env.WHATSAPP_FROM, numero, mensaje);
+        const resultado = await enviarRecordatorio(env.TWILIO_ACCOUNT_SID, env.TWILIO_AUTH_TOKEN, env.WHATSAPP_FROM, numero, horarioHoy, diaNombre, nombre);
         if (resultado.sid) {
           mensajesEnviados++;
         } else {
@@ -59,7 +58,7 @@ export async function onRequest(context) {
       }
     }
     
-    let respuesta = `Mensajes enviados: ${mensajesEnviados}`;
+    let respuesta = `Recordatorios enviados: ${mensajesEnviados}`;
     if (errores.length > 0) {
       respuesta += ` | Errores: ${errores.join(', ')}`;
     }
@@ -71,25 +70,35 @@ export async function onRequest(context) {
   }
 }
 
-function formatearMensajeMañana(horario, dia, nombre) {
-  if (!horario || horario.length === 0) {
-    return `¡Buenos días *${nombre}*!\n\nNo tienes clases programadas para *${dia.toUpperCase()}*\n\n¡Disfruta tu día libre!`;
-  }
-
-  let mensaje = `¡Buenos días *${nombre}*!\n\n*HORARIO ${dia.toUpperCase()}*\n========================\n\n`;
-
-  horario.forEach((clase, i) => {
-    mensaje += `*Clase ${i + 1}*\nHora: ${clase.hora}\nMateria: ${clase.materia}\nIng: ${clase.profesor}\n\n`;
-  });
-
-  mensaje += "========================\n¡Que tengas un excelente día académico!";
-  return mensaje;
-}
-
-async function enviarWhatsApp(accountSid, authToken, from, to, body) {
+async function enviarRecordatorio(accountSid, authToken, from, to, horario, dia, nombre) {
   const url = `https://api.twilio.com/2010-04-01/Accounts/${accountSid}/Messages.json`;
   const auth = btoa(`${accountSid}:${authToken}`);
   
+  if (!horario || horario.length === 0) {
+    const response = await fetch(url, {
+      method: 'POST',
+      headers: {
+        'Authorization': `Basic ${auth}`,
+        'Content-Type': 'application/x-www-form-urlencoded'
+      },
+      body: new URLSearchParams({ 
+        From: from,
+        To: to, 
+        Body: `Hola *${nombre}*!\n\nNo tienes clases programadas para *${dia.toUpperCase()}*\n\n¡Disfruta tu tarde libre!`
+      })
+    });
+    return response.json();
+  }
+
+  // Crear mensaje con botones interactivos
+  let mensaje = `🔔 *RECORDATORIO DE CLASES*\n\nHola *${nombre}*!\n\nTienes clases hoy *${dia.toUpperCase()}* a partir de las 18:00:\n\n`;
+  
+  horario.forEach((clase, i) => {
+    mensaje += `📚 ${clase.hora} - ${clase.materia}\n👨🏫 Ing. ${clase.profesor}\n\n`;
+  });
+  
+  mensaje += "⏰ *¡No olvides conectarte a tiempo!*";
+
   const response = await fetch(url, {
     method: 'POST',
     headers: {
@@ -99,7 +108,12 @@ async function enviarWhatsApp(accountSid, authToken, from, to, body) {
     body: new URLSearchParams({ 
       From: from,
       To: to, 
-      Body: body
+      Body: mensaje,
+      // Botones interactivos
+      PersistentAction: JSON.stringify([
+        "Recibido ✅",
+        "Gracias 👍"
+      ])
     })
   });
   
