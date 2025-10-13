@@ -1,0 +1,29 @@
+# Variables de entorno locales
+.dev.vars
+.env
+.env.local
+
+# Logs
+*.log
+logs/
+
+# Dependencias
+node_modules/
+
+# Archivos temporales
+.DS_Store
+Thumbs.db
+
+# Archivos de IDE
+.vscode/
+.idea/
+
+# Archivos de build
+dist/
+build/
+.cache/
+.wrangler/
+
+# Credenciales y configuración sensible
+config.json
+secrets.json

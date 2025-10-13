@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Notificador UTN</title>
+  <style>
+    body { font-family: Arial, sans-serif; margin: 40px; background: #f8f9fa; }
+    .container { max-width: 800px; margin: 0 auto; background: white; padding: 30px; border-radius: 10px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
+    .endpoint { background: #f5f5f5; padding: 15px; margin: 10px 0; border-radius: 5px; border-left: 4px solid #007acc; }
+    .method { color: #007acc; font-weight: bold; display: inline-block; width: 60px; }
+    .url { color: #333; font-family: monospace; }
+    .desc { color: #666; margin-top: 5px; font-size: 14px; }
+    .status { color: #28a745; font-weight: bold; }
+    .cron { background: #e9ecef; padding: 10px; border-radius: 5px; margin: 5px 0; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>🎓 Notificador de Horario UTN</h1>
+    <p>Sistema automatizado para notificaciones diarias de clases por WhatsApp</p>
+    <p class="status">✅ Sistema activo y funcionando</p>
+    
+    <h2>🤖 Endpoints de Telegram Bot:</h2>
+    
+    <div class="endpoint">
+      <span class="method">GET</span>
+      <span class="url">/telegram-horario</span>
+      <div class="desc">🌅 Mensaje matutino con horario completo (7:00 AM)</div>
+    </div>
+    
+    <div class="endpoint">
+      <span class="method">GET</span>
+      <span class="url">/telegram-recordatorio</span>
+      <div class="desc">🔔 Recordatorio con botones y enlaces Zoom (5:45 PM)</div>
+    </div>
+    
+    <div class="endpoint">
+      <span class="method">POST</span>
+      <span class="url">/telegram-bot</span>
+      <div class="desc">🔄 Webhook para respuestas de botones interactivos</div>
+    </div>
+    
+    <div class="endpoint">
+      <span class="method">GET</span>
+      <span class="url">/test-telegram</span>
+      <div class="desc">🔧 Verificar configuración del bot</div>
+    </div>
+    
+    <div class="endpoint">
+      <span class="method">GET/POST</span>
+      <span class="url">/actualizar-zoom</span>
+      <div class="desc">🔗 Gestionar enlaces de Zoom</div>
+    </div>
+    
+    <h2>⏰ Configuración Cron Jobs:</h2>
+    <div class="cron">
+      <strong>Mensaje Matutino:</strong> <code>0 7 * * *</code> (7:00 AM) → /telegram-horario
+    </div>
+    <div class="cron">
+      <strong>Recordatorio:</strong> <code>45 17 * * *</code> (5:45 PM) → /telegram-recordatorio
+    </div>
+    
+    <h2>📱 Funcionalidades:</h2>
+    <ul>
+      <li>✅ Bot de Telegram con botones interactivos reales</li>
+      <li>✅ Enlaces directos a clases Zoom</li>
+      <li>✅ Respuestas dinámicas aleatorias</li>
+      <li>✅ Horario UTN personalizado (Lunes a Jueves 18:00-22:00)</li>
+      <li>✅ Sin restricciones de tiempo (24/7)</li>
+      <li>✅ Notificaciones automáticas diarias</li>
+    </ul>
+    
+    <p><em>Bot: @notificador_utn_bot | Desarrollado para estudiantes de Ingeniería en Sistemas - UTN</em></p>
+  </div>
+</body>
+</html>
