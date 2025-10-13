@@ -64,6 +64,24 @@ async function enviarNotificacion(env) {
 }
 
 async function handleTelegramUpdate(update, env) {
+  // Responder con Chat ID si recibe mensaje de texto
+  if (update.message && update.message.text) {
+    const chatId = update.message.chat.id;
+    const firstName = update.message.chat.first_name || 'Usuario';
+    
+    await fetch(`https://api.telegram.org/bot${env.TELEGRAM_BOT_TOKEN}/sendMessage`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        chat_id: chatId,
+        text: `¡Hola ${firstName}! 👋\n\n🆔 Tu Chat ID es: \`${chatId}\`\n\n📋 Para agregarte al sistema:\n1. Copia este Chat ID\n2. Actualiza TELEGRAM_CHAT_IDS en Cloudflare\n3. Agrega tu nombre en STUDENT_NAMES`,
+        parse_mode: 'Markdown'
+      })
+    });
+    
+    return new Response('OK');
+  }
+  
   if (update.callback_query) {
     // Respuesta a botón presionado
     const callbackData = update.callback_query.data;
