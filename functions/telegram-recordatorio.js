@@ -6,8 +6,8 @@ const HORARIO = {
     {'hora': '21:00-22:00', 'materia': 'Deontología', 'profesor': 'Carlos Dávila Montalvo', 'zoom': 'https://cedia.zoom.us/j/88685446908'}
   ],
   'martes': [
-    {'hora': '18:00-19:00', 'materia': 'I.B. Programación Avanzada', 'profesor': 'Fausto Salazar Fierro', 'zoom': 'PENDIENTE_ENLACE'},
-    {'hora': '19:00-20:00', 'materia': 'Auditoría de TI', 'profesor': 'Diego Terán Pineda', 'zoom': 'PENDIENTE_ENLACE'},
+    {'hora': '18:00-19:00', 'materia': 'I.B. Programación Avanzada', 'profesor': 'Fausto Salazar Fierro', 'teams': 'REUNION POR TEAMS'},
+    {'hora': '19:00-20:00', 'materia': 'Auditoría de TI', 'profesor': 'Diego Terán Pineda', 'zoom': 'https://cedia.zoom.us/j/84286828097'},
     {'hora': '20:00-21:00', 'materia': 'Inteligencia Artificial', 'profesor': 'Víctor Caranqui Sánchez', 'zoom': 'https://cedia.zoom.us/j/88448571232'}
   ],
   'miercoles': [
@@ -15,10 +15,10 @@ const HORARIO = {
     {'hora': '19:00-20:00', 'materia': 'Emprendimiento e Innovación', 'profesor': 'Marcelo Cisneros Ruales', 'zoom': 'PENDIENTE_ENLACE'}
   ],
   'jueves': [
-    {'hora': '18:00-19:00', 'materia': 'Auditoría de TI', 'profesor': 'Diego Terán Pineda', 'zoom': 'PENDIENTE_ENLACE'},
-    {'hora': '19:00-20:00', 'materia': 'Auditoría de TI', 'profesor': 'Diego Terán Pineda', 'zoom': 'PENDIENTE_ENLACE'},
-    {'hora': '20:00-21:00', 'materia': 'I.B. Programación Avanzada', 'profesor': 'Fausto Salazar Fierro', 'zoom': 'PENDIENTE_ENLACE'},
-    {'hora': '21:00-22:00', 'materia': 'I.B. Programación Avanzada', 'profesor': 'Fausto Salazar Fierro', 'zoom': 'PENDIENTE_ENLACE'}
+    {'hora': '18:00-19:00', 'materia': 'Auditoría de TI', 'profesor': 'Diego Terán Pineda', 'zoom': 'https://cedia.zoom.us/j/89774207590'},
+    {'hora': '19:00-20:00', 'materia': 'Auditoría de TI', 'profesor': 'Diego Terán Pineda', 'zoom': 'https://cedia.zoom.us/j/89774207590'},
+    {'hora': '20:00-21:00', 'materia': 'I.B. Programación Avanzada', 'profesor': 'Fausto Salazar Fierro', 'teams': 'REUNION POR TEAMS'},
+    {'hora': '21:00-22:00', 'materia': 'I.B. Programación Avanzada', 'profesor': 'Fausto Salazar Fierro', 'teams': 'REUNION POR TEAMS'}
   ],
   'viernes': [], 'sabado': [], 'domingo': []
 };
