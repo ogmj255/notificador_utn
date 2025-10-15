@@ -6,7 +6,6 @@ export async function onRequest(context) {
   }
   
   try {
-    // Obtener actualizaciones recientes
     const response = await fetch(`https://api.telegram.org/bot${env.TELEGRAM_BOT_TOKEN}/getUpdates`);
     const data = await response.json();
     

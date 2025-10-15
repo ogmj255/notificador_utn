@@ -48,8 +48,6 @@ export async function onRequest(context) {
       if (!chatId) continue;
       
       const nombre = nombres[i] ? nombres[i].trim() : 'Estudiante';
-      
-      // Mensaje matutino (sin botones)
       let mensaje;
       if (!horarioHoy || horarioHoy.length === 0) {
         mensaje = `¡Buenos días *${nombre}*!\n\nNo tienes clases programadas para *${diaNombre.toUpperCase()}*\n\n¡Disfruta tu día libre! 🌟`;

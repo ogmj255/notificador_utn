@@ -1,7 +1,6 @@
 export async function onRequest(context) {
   const { env } = context;
   
-  // Debug: verificar variables
   const debug = {
     TELEGRAM_BOT_TOKEN: env.TELEGRAM_BOT_TOKEN ? 'Configurado' : 'NO configurado',
     TELEGRAM_CHAT_IDS: env.TELEGRAM_CHAT_IDS || 'NO configurado',
@@ -14,7 +13,6 @@ export async function onRequest(context) {
     });
   }
   
-  // Probar envío directo
   try {
     const url = `https://api.telegram.org/bot${env.TELEGRAM_BOT_TOKEN}/sendMessage`;
     

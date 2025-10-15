@@ -19,7 +19,6 @@ Esto configurará el webhook temporalmente para pruebas.
     `);
   }
   
-  // Configurar webhook con URL de ngrok
   const url = new URL(request.url);
   const ngrokUrl = url.searchParams.get('url');
   

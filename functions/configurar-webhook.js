@@ -6,9 +6,7 @@ export async function onRequest(context) {
   }
   
   try {
-    // Configurar webhook para que los botones funcionen
     const webhookUrl = 'https://notificador-utn.pages.dev/telegram-bot';
-    
     const response = await fetch(`https://api.telegram.org/bot${env.TELEGRAM_BOT_TOKEN}/setWebhook`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },

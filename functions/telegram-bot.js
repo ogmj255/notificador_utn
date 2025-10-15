@@ -27,12 +27,9 @@ export async function onRequest(context) {
   const { env, request } = context;
   
   if (request.method === 'POST') {
-    // Webhook de Telegram
     const update = await request.json();
     return handleTelegramUpdate(update, env);
   }
-  
-  // GET request - enviar notificación programada
   return enviarNotificacion(env);
 }
 
@@ -64,7 +61,6 @@ async function enviarNotificacion(env) {
 }
 
 async function handleTelegramUpdate(update, env) {
-  // Responder con Chat ID si recibe mensaje de texto
   if (update.message && update.message.text) {
     const chatId = update.message.chat.id;
     const firstName = update.message.chat.first_name || 'Usuario';
@@ -83,7 +79,6 @@ async function handleTelegramUpdate(update, env) {
   }
   
   if (update.callback_query) {
-    // Respuesta a botón presionado
     const callbackData = update.callback_query.data;
     const chatId = update.callback_query.message.chat.id;
     const messageId = update.callback_query.message.message_id;
@@ -117,7 +112,6 @@ async function handleTelegramUpdate(update, env) {
       respuesta = respuestas[callbackData][random % respuestas[callbackData].length];
     }
     
-    // Responder al callback
     await fetch(`https://api.telegram.org/bot${env.TELEGRAM_BOT_TOKEN}/answerCallbackQuery`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },

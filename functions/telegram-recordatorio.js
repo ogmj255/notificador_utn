@@ -11,8 +11,8 @@ const HORARIO = {
     {'hora': '20:00-21:00', 'materia': 'Inteligencia Artificial', 'profesor': 'Víctor Caranqui Sánchez', 'zoom': 'https://cedia.zoom.us/j/88448571232'}
   ],
   'miercoles': [
-    {'hora': '18:00-19:00', 'materia': 'Emprendimiento e Innovación', 'profesor': 'Marcelo Cisneros Ruales', 'zoom': 'PENDIENTE_ENLACE'},
-    {'hora': '19:00-20:00', 'materia': 'Emprendimiento e Innovación', 'profesor': 'Marcelo Cisneros Ruales', 'zoom': 'PENDIENTE_ENLACE'}
+    {'hora': '18:00-19:00', 'materia': 'Emprendimiento e Innovación', 'profesor': 'Marcelo Cisneros Ruales', 'zoom': 'https://cedia.zoom.us/j/87515254524'},
+    {'hora': '19:00-20:00', 'materia': 'Emprendimiento e Innovación', 'profesor': 'Marcelo Cisneros Ruales', 'zoom': 'https://cedia.zoom.us/j/87515254524'}
   ],
   'jueves': [
     {'hora': '18:00-19:00', 'materia': 'Auditoría de TI', 'profesor': 'Diego Terán Pineda', 'zoom': 'https://cedia.zoom.us/j/89774207590'},
@@ -49,7 +49,6 @@ export async function onRequest(context) {
       
       const nombre = nombres[i] ? nombres[i].trim() : 'Estudiante';
       
-      // Recordatorio con botones
       let mensaje;
       if (!horarioHoy || horarioHoy.length === 0) {
         mensaje = `Hola *${nombre}*!\n\nNo tienes clases programadas para *${diaNombre.toUpperCase()}*\n\n¡Disfruta tu tarde libre! 🌟`;
@@ -59,7 +58,9 @@ export async function onRequest(context) {
         horarioHoy.forEach((clase, i) => {
           mensaje += `📚 ${clase.hora} - ${clase.materia}\n👨🏫 Ing. ${clase.profesor}\n`;
           
-          if (clase.zoom && clase.zoom !== 'PENDIENTE_ENLACE') {
+          if (clase.teams) {
+            mensaje += `📱 ${clase.teams}\n`;
+          } else if (clase.zoom && clase.zoom !== 'PENDIENTE_ENLACE') {
             mensaje += `🔗 [Unirse a Zoom](${clase.zoom})\n`;
           } else {
             mensaje += `🔗 Enlace Zoom: Pendiente\n`;
@@ -77,7 +78,6 @@ export async function onRequest(context) {
         parse_mode: 'Markdown'
       };
       
-      // Agregar botones solo si hay clases
       if (horarioHoy && horarioHoy.length > 0) {
         payload.reply_markup = {
           inline_keyboard: [[
