@@ -1,8 +1,8 @@
 const HORARIO = {
   'lunes': [
-    {'hora': '18:00-19:00', 'materia': 'GESTIÓN DE SISTEMAS DE CALIDAD', 'profesor': 'CATHY GUEVARA','zoom': ''},
-    {'hora': '19:00-20:00', 'materia': 'GESTIÓN DE SISTEMAS DE CALIDAD', 'profesor': 'CATHY GUEVARA','zoom': ''},
-    {'hora': '20:00-21:00', 'materia': 'I.I. DESARROLLO BASADO EN FRAMEWORKS', 'profesor': 'PABLO LANDETA','zoom': ''},
+    {'hora': '18:00-19:00', 'materia': 'GESTIÓN DE SISTEMAS DE CALIDAD', 'profesor': 'CATHY GUEVARA','zoom': 'https://cedia.zoom.us/j/81850705472'},
+    {'hora': '19:00-20:00', 'materia': 'GESTIÓN DE SISTEMAS DE CALIDAD', 'profesor': 'CATHY GUEVARA','zoom': 'https://cedia.zoom.us/j/81850705472'},
+    {'hora': '20:00-21:00', 'materia': 'I.I. DESARROLLO BASADO EN FRAMEWORKS', 'profesor': 'PABLO LANDETA','zoom': 'https://cedia.zoom.us/j/87211572878'},
   ],
   'martes': [
     {'hora': '19:00-20:00', 'materia': 'FORMULACIÓN Y EVALUACIÓN DEL TRABAJO DE TITULACIÓN	', 'profesor': 'DIEGO TERÁN','zoom': 'https://cedia.zoom.us/j/82302575429'},
