@@ -1,24 +1,23 @@
 const HORARIO = {
-  'lunes': [
-    {'hora': '18:00-19:00', 'materia': 'Inteligencia Artificial', 'profesor': 'Víctor Caranqui Sánchez'},
-    {'hora': '19:00-20:00', 'materia': 'Inteligencia Artificial', 'profesor': 'Víctor Caranqui Sánchez'},
-    {'hora': '20:00-21:00', 'materia': 'Deontología', 'profesor': 'Carlos Dávila Montalvo'},
-    {'hora': '21:00-22:00', 'materia': 'Deontología', 'profesor': 'Carlos Dávila Montalvo'}
+   'lunes': [
+    {'hora': '18:00-19:00', 'materia': 'GESTIÓN DE SISTEMAS DE CALIDAD', 'profesor': 'CATHY GUEVARA'},
+    {'hora': '19:00-20:00', 'materia': 'GESTIÓN DE SISTEMAS DE CALIDAD', 'profesor': 'CATHY GUEVARA'},
+    {'hora': '20:00-21:00', 'materia': 'I.I. DESARROLLO BASADO EN FRAMEWORKS', 'profesor': 'PABLO LANDETA'},
   ],
   'martes': [
-    {'hora': '18:00-19:00', 'materia': 'I.B. Programación Avanzada', 'profesor': 'Fausto Salazar Fierro'},
-    {'hora': '19:00-20:00', 'materia': 'Auditoría de TI', 'profesor': 'Diego Terán Pineda'},
-    {'hora': '20:00-21:00', 'materia': 'Inteligencia Artificial', 'profesor': 'Víctor Caranqui Sánchez'}
+    {'hora': '19:00-20:00', 'materia': 'FORMULACIÓN Y EVALUACIÓN DEL TRABAJO DE TITULACIÓN	', 'profesor': 'DIEGO TERÁN'},
+    {'hora': '20:00-21:00', 'materia': 'FORMULACIÓN Y EVALUACIÓN DEL TRABAJO DE TITULACIÓN	', 'profesor': 'DIEGO TERÁN'},
   ],
   'miercoles': [
-    {'hora': '18:00-19:00', 'materia': 'Emprendimiento e Innovación', 'profesor': 'Marcelo Cisneros Ruales'},
-    {'hora': '19:00-20:00', 'materia': 'Emprendimiento e Innovación', 'profesor': 'Marcelo Cisneros Ruales'}
+    {'hora': '18:00-19:00', 'materia': 'COMPUTACIÓN MÓVIL', 'profesor': 'DIEGO TREJO'},
+    {'hora': '19:00-20:00', 'materia': 'COMPUTACIÓN MÓVIL', 'profesor': 'DIEGO TREJO'},
+    {'hora': '20:00-21:00', 'materia': 'COMPUTACIÓN MÓVIL', 'profesor': 'DIEGO TREJO'},
   ],
   'jueves': [
-    {'hora': '18:00-19:00', 'materia': 'Auditoría de TI', 'profesor': 'Diego Terán Pineda'},
-    {'hora': '19:00-20:00', 'materia': 'Auditoría de TI', 'profesor': 'Diego Terán Pineda'},
-    {'hora': '20:00-21:00', 'materia': 'I.B. Programación Avanzada', 'profesor': 'Fausto Salazar Fierro'},
-    {'hora': '21:00-22:00', 'materia': 'I.B. Programación Avanzada', 'profesor': 'Fausto Salazar Fierro'}
+    {'hora': '18:00-19:00', 'materia': 'I.I. DESARROLLO BASADO EN FRAMEWORKS', 'profesor': 'PABLO LANDETA'},
+    {'hora': '19:00-20:00', 'materia': 'I.I. DESARROLLO BASADO EN FRAMEWORKS', 'profesor': 'PABLO LANDETA'},
+    {'hora': '20:00-21:00', 'materia': 'SISTEMAS DISTRIBUIDOS', 'profesor': 'PABLO LANDETA'},
+    {'hora': '21:00-22:00', 'materia': 'SISTEMAS DISTRIBUIDOS', 'profesor': 'PABLO LANDETA'}
   ],
   'viernes': [], 'sabado': [], 'domingo': []
 };

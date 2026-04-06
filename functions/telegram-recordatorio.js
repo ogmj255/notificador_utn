@@ -1,24 +1,23 @@
 const HORARIO = {
   'lunes': [
-    {'hora': '18:00-19:00', 'materia': 'Inteligencia Artificial', 'profesor': 'Víctor Caranqui Sánchez', 'zoom': 'https://cedia.zoom.us/j/84075745352'},
-    {'hora': '19:00-20:00', 'materia': 'Inteligencia Artificial', 'profesor': 'Víctor Caranqui Sánchez', 'zoom': 'https://cedia.zoom.us/j/84075745352'},
-    {'hora': '20:00-21:00', 'materia': 'Deontología', 'profesor': 'Carlos Dávila Montalvo', 'zoom': 'https://cedia.zoom.us/j/88685446908'},
-    {'hora': '21:00-22:00', 'materia': 'Deontología', 'profesor': 'Carlos Dávila Montalvo', 'zoom': 'https://cedia.zoom.us/j/88685446908'}
+    {'hora': '18:00-19:00', 'materia': 'GESTIÓN DE SISTEMAS DE CALIDAD', 'profesor': 'CATHY GUEVARA','zoom': ''},
+    {'hora': '19:00-20:00', 'materia': 'GESTIÓN DE SISTEMAS DE CALIDAD', 'profesor': 'CATHY GUEVARA','zoom': ''},
+    {'hora': '20:00-21:00', 'materia': 'I.I. DESARROLLO BASADO EN FRAMEWORKS', 'profesor': 'PABLO LANDETA','zoom': ''},
   ],
   'martes': [
-    {'hora': '18:00-19:00', 'materia': 'I.B. Programación Avanzada', 'profesor': 'Fausto Salazar Fierro', 'teams': 'REUNION POR TEAMS'},
-    {'hora': '19:00-20:00', 'materia': 'Auditoría de TI', 'profesor': 'Diego Terán Pineda', 'zoom': 'https://cedia.zoom.us/j/84286828097'},
-    {'hora': '20:00-21:00', 'materia': 'Inteligencia Artificial', 'profesor': 'Víctor Caranqui Sánchez', 'zoom': 'https://cedia.zoom.us/j/88448571232'}
+    {'hora': '19:00-20:00', 'materia': 'FORMULACIÓN Y EVALUACIÓN DEL TRABAJO DE TITULACIÓN	', 'profesor': 'DIEGO TERÁN','zoom': 'https://cedia.zoom.us/j/82302575429'},
+    {'hora': '20:00-21:00', 'materia': 'FORMULACIÓN Y EVALUACIÓN DEL TRABAJO DE TITULACIÓN	', 'profesor': 'DIEGO TERÁN','zoom': 'https://cedia.zoom.us/j/82302575429'},
   ],
   'miercoles': [
-    {'hora': '18:00-19:00', 'materia': 'Emprendimiento e Innovación', 'profesor': 'Marcelo Cisneros Ruales', 'zoom': 'https://cedia.zoom.us/j/87515254524'},
-    {'hora': '19:00-20:00', 'materia': 'Emprendimiento e Innovación', 'profesor': 'Marcelo Cisneros Ruales', 'zoom': 'https://cedia.zoom.us/j/87515254524'}
+    {'hora': '18:00-19:00', 'materia': 'COMPUTACIÓN MÓVIL', 'profesor': 'DIEGO TREJO','zoom': ''},
+    {'hora': '19:00-20:00', 'materia': 'COMPUTACIÓN MÓVIL', 'profesor': 'DIEGO TREJO','zoom': ''},
+    {'hora': '20:00-21:00', 'materia': 'COMPUTACIÓN MÓVIL', 'profesor': 'DIEGO TREJO','zoom': ''},
   ],
   'jueves': [
-    {'hora': '18:00-19:00', 'materia': 'Auditoría de TI', 'profesor': 'Diego Terán Pineda', 'zoom': 'https://cedia.zoom.us/j/89774207590'},
-    {'hora': '19:00-20:00', 'materia': 'Auditoría de TI', 'profesor': 'Diego Terán Pineda', 'zoom': 'https://cedia.zoom.us/j/89774207590'},
-    {'hora': '20:00-21:00', 'materia': 'I.B. Programación Avanzada', 'profesor': 'Fausto Salazar Fierro', 'teams': 'REUNION POR TEAMS'},
-    {'hora': '21:00-22:00', 'materia': 'I.B. Programación Avanzada', 'profesor': 'Fausto Salazar Fierro', 'teams': 'REUNION POR TEAMS'}
+    {'hora': '18:00-19:00', 'materia': 'I.I. DESARROLLO BASADO EN FRAMEWORKS', 'profesor': 'PABLO LANDETA', 'zoom': ''},
+    {'hora': '19:00-20:00', 'materia': 'I.I. DESARROLLO BASADO EN FRAMEWORKS', 'profesor': 'PABLO LANDETA', 'zoom': ''},
+    {'hora': '20:00-21:00', 'materia': 'SISTEMAS DISTRIBUIDOS', 'profesor': 'PABLO LANDETA', 'zoom': ''},
+    {'hora': '21:00-22:00', 'materia': 'SISTEMAS DISTRIBUIDOS', 'profesor': 'PABLO LANDETA', 'zoom': ''}
   ],
   'viernes': [], 'sabado': [], 'domingo': []
 };
