@@ -9,15 +9,15 @@ const HORARIO = {
     {'hora': '20:00-21:00', 'materia': 'FORMULACIÓN Y EVALUACIÓN DEL TRABAJO DE TITULACIÓN	', 'profesor': 'DIEGO TERÁN','zoom': 'https://cedia.zoom.us/j/82302575429'},
   ],
   'miercoles': [
-    {'hora': '18:00-19:00', 'materia': 'COMPUTACIÓN MÓVIL', 'profesor': 'DIEGO TREJO','zoom': ''},
-    {'hora': '19:00-20:00', 'materia': 'COMPUTACIÓN MÓVIL', 'profesor': 'DIEGO TREJO','zoom': ''},
-    {'hora': '20:00-21:00', 'materia': 'COMPUTACIÓN MÓVIL', 'profesor': 'DIEGO TREJO','zoom': ''},
+    {'hora': '18:00-19:00', 'materia': 'COMPUTACIÓN MÓVIL', 'profesor': 'DIEGO TREJO','TEAMS': 'REUNION POR TEAMS'},
+    {'hora': '19:00-20:00', 'materia': 'COMPUTACIÓN MÓVIL', 'profesor': 'DIEGO TREJO','TEAMS': 'REUNION POR TEAMS'},
+    {'hora': '20:00-21:00', 'materia': 'COMPUTACIÓN MÓVIL', 'profesor': 'DIEGO TREJO','TEAMS': 'REUNION POR TEAMS'},
   ],
   'jueves': [
-    {'hora': '18:00-19:00', 'materia': 'I.I. DESARROLLO BASADO EN FRAMEWORKS', 'profesor': 'PABLO LANDETA', 'zoom': ''},
-    {'hora': '19:00-20:00', 'materia': 'I.I. DESARROLLO BASADO EN FRAMEWORKS', 'profesor': 'PABLO LANDETA', 'zoom': ''},
-    {'hora': '20:00-21:00', 'materia': 'SISTEMAS DISTRIBUIDOS', 'profesor': 'PABLO LANDETA', 'zoom': ''},
-    {'hora': '21:00-22:00', 'materia': 'SISTEMAS DISTRIBUIDOS', 'profesor': 'PABLO LANDETA', 'zoom': ''}
+    {'hora': '18:00-19:00', 'materia': 'I.I. DESARROLLO BASADO EN FRAMEWORKS', 'profesor': 'PABLO LANDETA', 'zoom': 'https://cedia.zoom.us/j/87926689296'},
+    {'hora': '19:00-20:00', 'materia': 'I.I. DESARROLLO BASADO EN FRAMEWORKS', 'profesor': 'PABLO LANDETA', 'zoom': 'https://cedia.zoom.us/j/87926689296'},
+    {'hora': '20:00-21:00', 'materia': 'SISTEMAS DISTRIBUIDOS', 'profesor': 'PABLO LANDETA', 'zoom': 'https://cedia.zoom.us/j/83947994550'},
+    {'hora': '21:00-22:00', 'materia': 'SISTEMAS DISTRIBUIDOS', 'profesor': 'PABLO LANDETA', 'zoom': 'https://cedia.zoom.us/j/83947994550'}
   ],
   'viernes': [], 'sabado': [], 'domingo': []
 };
